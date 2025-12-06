@@ -6,8 +6,7 @@ import (
 )
 
 func main() {
-	// 1. Argument Handling
-	// Ensure we have Input and Output file arguments
+	// 1. Ensure we have Input and Output file arguments
 	if len(os.Args) != 3 {
 		fmt.Println("Usage: go run . <input_file> <output_file>")
 		return

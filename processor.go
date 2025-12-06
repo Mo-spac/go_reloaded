@@ -6,11 +6,7 @@ import (
 	"unicode"
 )
 
-// ProcessText takes the input text and applies all the required modifications.
 func ProcessText(input string) string {
-	// Pre-process: pad punctuation with spaces to ensure they are tokenized separately.
-	// punctuations to handle: . , ! ? : ; '
-	// Note: brackets () for markers are NOT included, so (hex) stays together.
 	puncts := ".,!?:;'"
 	for _, p := range puncts {
 		input = strings.ReplaceAll(input, string(p), " "+string(p)+" ")
@@ -60,12 +56,8 @@ func ProcessText(input string) string {
 			continue
 		}
 
-		// Handle (up, n), (low, n), (cap, n) with potential padded comma
-		// Pattern: "(up", ",", "2)" due to pre-processing comma
 		if strings.HasPrefix(word, "(") {
 			cleanMarker := word[1:]
-			// It might be just "(up" if comma was split, or "(up," if not?
-			// Since we pad ",", it becomes " " + "," + " ". So "(up, 2)" -> "(up" " ," " 2)".
 
 			if (cleanMarker == "up" || cleanMarker == "low" || cleanMarker == "cap") && i+2 < len(words) {
 				if words[i+1] == "," {
@@ -161,12 +153,7 @@ func handlePunctuation(words []string) string {
 		if word == "'" {
 			if !inQuote {
 				inQuote = true
-				// Open quote
-				// Keeps space before (default true), no space after (handled by next word's logic not looking back usually, EXCEPT special check below)
-				// Wait, "Space apart from next one" is NOT true for Open Quote. "Close to the next one".
-				// My logic for "Next word" needs to handle this.
 			} else {
-				// Close quote: touches previous word.
 				inQuote = false
 				addSpaceBefore = false
 			}
@@ -175,12 +162,6 @@ func handlePunctuation(words []string) string {
 				sb.WriteString(" ")
 			}
 			sb.WriteString(word)
-
-			// if inQuote {
-			// 	inQuote = false
-			// } else {
-			// 	inQuote = true
-			// }
 			continue
 		}
 
@@ -207,8 +188,7 @@ func handlePunctuation(words []string) string {
 func isPunctuationGroup(s string, puncts string) bool {
 	for _, r := range s {
 		if !strings.ContainsRune(puncts, r) && r != '.' {
-			// note: '...' contains '.' which is in puncts.
-			// But prompt groups example: "!?".
+			// n '...' contains '.' which is in puncts.
 			return false
 		}
 	}
