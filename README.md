@@ -19,11 +19,3 @@ It reads a text file, applies transformations based on special markers, and outp
 - Flexible and extensible for additional markers.
 
 ---
-
-## Usage
-
-1. Clone the repository:
-
-```bash
-git clone <your-repo-url>
-cd <repo-folder>
