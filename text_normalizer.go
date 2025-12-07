@@ -6,7 +6,7 @@ import (
 	"unicode"
 )
 
-func ProcessText(input string) string {
+func NormalizeText(input string) string {
 	puncts := ".,!?:;'"
 	for _, p := range puncts {
 		input = strings.ReplaceAll(input, string(p), " "+string(p)+" ")
@@ -42,17 +42,17 @@ func ProcessText(input string) string {
 		}
 
 		if word == "(up)" {
-			applyTransformation(processedWords, strings.ToUpper, 1)
+			applyWordTransform(processedWords, strings.ToUpper, 1)
 			continue
 		}
 
 		if word == "(low)" {
-			applyTransformation(processedWords, strings.ToLower, 1)
+			applyWordTransform(processedWords, strings.ToLower, 1)
 			continue
 		}
 
 		if word == "(cap)" {
-			applyTransformation(processedWords, capitalize, 1)
+			applyWordTransform(processedWords, capitalizeWord, 1)
 			continue
 		}
 
@@ -69,11 +69,11 @@ func ProcessText(input string) string {
 							i += 2 // Skip comma and number
 							switch cleanMarker {
 							case "up":
-								applyTransformation(processedWords, strings.ToUpper, count)
+								applyWordTransform(processedWords, strings.ToUpper, count)
 							case "low":
-								applyTransformation(processedWords, strings.ToLower, count)
+								applyWordTransform(processedWords, strings.ToLower, count)
 							case "cap":
-								applyTransformation(processedWords, capitalize, count)
+								applyWordTransform(processedWords, capitalizeWord, count)
 							}
 							continue
 						}
@@ -94,7 +94,7 @@ func ProcessText(input string) string {
 	return finalString
 }
 
-func applyTransformation(words []string, transform func(string) string, count int) {
+func applyWordTransform(words []string, transform func(string) string, count int) {
 	startIndex := len(words) - count
 	if startIndex < 0 {
 		startIndex = 0
@@ -104,7 +104,7 @@ func applyTransformation(words []string, transform func(string) string, count in
 	}
 }
 
-func capitalize(s string) string {
+func capitalizeWord(s string) string {
 	if len(s) == 0 {
 		return s
 	}

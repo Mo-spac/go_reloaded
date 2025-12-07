@@ -23,7 +23,7 @@ func main() {
 	}
 
 	// 3. Processing - casting (main logic)
-	result := ProcessText(string(content))
+	result := NormalizeText(string(content))
 
 	// 4. Write File
 	err = os.WriteFile(outputFile, []byte(result), 0644)

@@ -2,7 +2,7 @@ package main
 
 import "testing"
 
-func TestProcessText(t *testing.T) {
+func TestNormalizeText(t *testing.T) {
 	tests := []struct {
 		name     string
 		input    string
@@ -92,9 +92,9 @@ func TestProcessText(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			got := ProcessText(tt.input)
+			got := NormalizeText(tt.input)
 			if got != tt.expected {
-				t.Errorf("ProcessText() = %q, want %q", got, tt.expected)
+				t.Errorf("NormalizeText() = %q, want %q", got, tt.expected)
 			}
 		})
 	}
