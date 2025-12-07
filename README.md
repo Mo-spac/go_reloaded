@@ -1,6 +1,4 @@
-﻿# go_reloaded
-
-# Text Processor in Go
+﻿# go_reloaded - Text Processor in Go
 
 This project is a **text processing tool** written in Go.  
 It reads a text file, applies transformations based on special markers, and outputs the processed text.
